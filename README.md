@@ -1,16 +1,13 @@
-# simple_todo
+# simple_todo_app
 
-A new Flutter project.
+## Description
+A simple todo app with the intention to learn flutter's basic local storage systems.
 
-## Getting Started
+## Next steps
+- build basic scaffold and user interface
+- build functionalities (add todos, edit todos, remove todos)
+- integrate local storage system for todos
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Possible further stuff
+- focus on user interface and experience
+- add tags and urgency to todos
