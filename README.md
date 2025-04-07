@@ -4,8 +4,7 @@
 A simple todo app with the intention to learn flutter's basic local storage systems.
 
 ## Next steps
-- finish basic scaffold and user interface
-- build functionalities (add todos, edit todos, remove todos)
+- build functionalities (edit todos, remove todos)
   - use smooth pop-up window to edit and view tasks by clicking on a task
     - include task description
   - swipe to remove a task directly

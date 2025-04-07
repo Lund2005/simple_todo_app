@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:simple_todo/creation_popup.dart';
 import 'package:simple_todo/todo_list_tile.dart';
 
 class HomePage extends StatefulWidget {
@@ -14,12 +15,40 @@ class _HomePageState extends State<HomePage> {
     ["Test task 2", true],
     ["Test task  3", true],
   ];
+  final _controller = TextEditingController();
 
-  //checkboy of a task was changed
+  //checkbox of a task was changed
   void checkBoxChanged(bool? value, int index) {
     setState(() {
       todos[index][1] = value;
     });
+  }
+
+  //create new task
+  void createTask() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return CreationPopup(
+          controller: _controller,
+          onCancel: () {
+            clearCreationPopup();
+          },
+          onAdd: () {
+            setState(() {
+              todos.insert(0, [_controller.text, false]);
+            });
+            clearCreationPopup();
+          },
+        );
+      },
+    );
+  }
+
+  //add task from task creation page
+  void clearCreationPopup() {
+    Navigator.of(context).pop();
+    _controller.clear();
   }
 
   @override
@@ -38,6 +67,13 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         backgroundColor: scheme.primary,
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        label: Row(
+          children: [Icon(Icons.add), SizedBox(width: 4), Text('New task')],
+        ),
+        onPressed: createTask,
+        elevation: 4,
       ),
       body: ListView.builder(
         itemCount: todos.length,
