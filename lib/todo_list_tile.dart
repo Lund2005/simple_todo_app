@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
 class TodoListTile extends StatelessWidget {
+  final int index;
   final String taskName;
   final bool taskCompleted;
   final Function(bool?)? onChanged;
 
   const TodoListTile({
     super.key,
+    required this.index,
     required this.taskName,
     required this.taskCompleted,
     required this.onChanged,
@@ -38,6 +40,17 @@ class TodoListTile extends StatelessWidget {
                     taskCompleted
                         ? TextDecoration.lineThrough
                         : TextDecoration.none,
+              ),
+            ),
+            SizedBox(),
+            Expanded(
+              child: Container(
+                padding: EdgeInsets.only(right: 10),
+                alignment: Alignment.centerRight,
+                child: ReorderableDragStartListener(
+                  index: index,
+                  child: Icon(Icons.drag_handle),
+                ),
               ),
             ),
           ],

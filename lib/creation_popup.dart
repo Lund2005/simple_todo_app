@@ -28,6 +28,7 @@ class _CreationPopupState extends State<CreationPopup> {
         child: Column(
           children: [
             TextField(
+              autofocus: true,
               controller: widget.controller,
               decoration: InputDecoration(hintText: 'The next big thing'),
               onChanged: (value) {
