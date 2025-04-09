@@ -4,17 +4,21 @@
 A simple todo app with the intention to learn flutter's basic local storage systems.
 
 ## Next steps
+- finish new adding system
+  - only add when textbox not empty, otherwise disable button
 - build functionalities (edit todos)
   - use smooth pop-up window to edit and view tasks by clicking on a task
-    - include task description
+    - include task category and importancy
   - group task by active and completed tasks
 - integrate local storage system for todos
 
 ## Possible further stuff
 - focus on user interface and experience
+  - put list view in safe area (currently collides with phone navigation bar)
   - animate tasks smoothly
-- add tags and urgency to tasks
-  - sort task options (urgency, date...)
+  - fix adding bar lagging when keyboard appears
+  -fix gap when deleting task
+- add different buttons for category filtering at the top (with "All tasks" as the default state)
 - auto delete task after they have been finished for a certain time
 
 ## References

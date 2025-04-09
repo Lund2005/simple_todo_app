@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:simple_todo/creation_popup.dart';
 import 'package:simple_todo/todo_list_tile.dart';
 
 class HomePage extends StatefulWidget {
@@ -10,6 +9,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  //variables
   List<Task> todos = [
     Task(name: 'Task 1'),
     Task(name: 'Task 2'),
@@ -26,28 +26,10 @@ class _HomePageState extends State<HomePage> {
 
   //create new task
   void createTask() {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return CreationPopup(
-          controller: _controller,
-          onCancel: () {
-            clearCreationPopup();
-          },
-          onAdd: () {
-            setState(() {
-              todos.insert(0, Task(name: _controller.text));
-            });
-            clearCreationPopup();
-          },
-        );
-      },
-    );
-  }
+    setState(() {
+      todos.add(Task(name: _controller.text));
+    });
 
-  //add task from task creation page
-  void clearCreationPopup() {
-    Navigator.of(context).pop();
     _controller.clear();
   }
 
@@ -68,78 +50,106 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       backgroundColor: scheme.surface,
-      //App bar for navigation and information on the top
-      appBar: AppBar(
-        title: Text(
-          'Tasks',
-          style: TextStyle(
-            color: scheme.onPrimary,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
+      body: Column(
+        children: [
+          //list view of tasks
+          Expanded(
+            child: ReorderableListView.builder(
+              buildDefaultDragHandles: false,
+              proxyDecorator: (child, index, animation) {
+                return Material(color: Colors.transparent, child: child);
+              },
+              onReorder: reorderList,
+              itemCount: todos.length,
+              itemBuilder: (context, index) {
+                Task cur = todos[index];
+                return Dismissible(
+                  //Dismissable key, needs to be unique
+                  key: Key(cur.id),
+                  direction: DismissDirection.endToStart,
+                  background: Padding(
+                    padding: const EdgeInsets.only(
+                      left: 16,
+                      right: 16,
+                      top: 12,
+                    ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: scheme.errorContainer,
+                        borderRadius: BorderRadius.circular(16),
+                        gradient: LinearGradient(
+                          colors: [scheme.surface, scheme.errorContainer],
+                          begin: Alignment.center,
+                        ),
+                      ),
+                      alignment: Alignment.centerRight,
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 20),
+                        child: Icon(Icons.delete, color: scheme.error),
+                      ),
+                    ),
+                  ),
+                  onDismissed: (direction) {
+                    setState(() {
+                      todos.removeAt(index);
+                    });
+                  },
+                  child: TodoListTile(
+                    //List tile key (needs to be specific to the index)
+                    key: ValueKey(cur.id),
+                    index: index,
+                    taskName: cur.name,
+                    taskCompleted: cur.done,
+                    onChanged: (value) => checkBoxChanged(value, index),
+                  ),
+                );
+              },
+            ),
           ),
-        ),
-        backgroundColor: scheme.primary,
-      ),
-      //button for adding new tasks
-      floatingActionButton: FloatingActionButton.extended(
-        label: Row(
-          children: [Icon(Icons.add), SizedBox(width: 4), Text('New task')],
-        ),
-        onPressed: createTask,
-        elevation: 4,
-      ),
-      //body with list view of tasks
-      body: ReorderableListView.builder(
-        buildDefaultDragHandles: false,
-        proxyDecorator: (child, index, animation) {
-          return Material(color: Colors.transparent, child: child);
-        },
-        onReorder: reorderList,
-        itemCount: todos.length,
-        itemBuilder: (context, index) {
-          Task cur = todos[index];
-          return Dismissible(
-            //Dismissable key, needs to be unique
-            key: Key(cur.id),
-            direction: DismissDirection.endToStart,
-            background: Padding(
-              padding: const EdgeInsets.only(left: 16, right: 16, top: 12),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: scheme.errorContainer,
-                  borderRadius: BorderRadius.circular(16),
-                  gradient: LinearGradient(
-                    colors: [scheme.surface, scheme.errorContainer],
-                    begin: Alignment.center,
+          //bottom bar for adding new tasks
+          Container(
+            padding: EdgeInsets.only(bottom: 18, left: 12, right: 12, top: 14),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: _controller,
+                    decoration: InputDecoration(
+                      hintText: 'What do you want to do?',
+                      contentPadding: EdgeInsets.only(
+                        left: 20,
+                        right: 20,
+                        bottom: 25,
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(50),
+                        borderSide: BorderSide(width: 10),
+                      ),
+                    ),
+                    onChanged: (value) {},
                   ),
                 ),
-                alignment: Alignment.centerRight,
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 20),
-                  child: Icon(Icons.delete, color: scheme.error),
+                SizedBox(width: 4),
+                IconButton.filled(
+                  iconSize: 25,
+                  padding: EdgeInsets.all(12),
+                  splashColor: scheme.primary,
+                  icon: Icon(
+                    Icons.arrow_upward_rounded,
+                    color: scheme.onPrimary,
+                  ),
+                  onPressed: createTask,
                 ),
-              ),
+              ],
             ),
-            onDismissed: (direction) {
-              setState(() {
-                todos.removeAt(index);
-              });
-            },
-            child: TodoListTile(
-              //List tile key (needs to be specific to the index)
-              key: ValueKey(cur.id),
-              index: index,
-              taskName: cur.name,
-              taskCompleted: cur.done,
-              onChanged: (value) => checkBoxChanged(value, index),
-            ),
-          );
-        },
+          ),
+        ],
       ),
     );
   }
 }
 
+//task class to hold task data
 class Task {
   String id;
   String name;

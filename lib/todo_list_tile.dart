@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class TodoListTile extends StatelessWidget {
+  //variables
   final int index;
   final String taskName;
   final bool taskCompleted;
@@ -47,6 +48,7 @@ class TodoListTile extends StatelessWidget {
               child: Container(
                 padding: EdgeInsets.only(right: 10),
                 alignment: Alignment.centerRight,
+                //drag handle with icon
                 child: ReorderableDragStartListener(
                   index: index,
                   child: Icon(Icons.drag_handle),
