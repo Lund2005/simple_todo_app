@@ -4,8 +4,9 @@
 A simple todo app with the intention to learn flutter's basic local storage systems.
 
 ## Next steps
-- finish new adding system
-  - only add when textbox not empty, otherwise disable button
+-fix 'Incorrect use of ParentDataWidget.' bug due to Expanded-widget
+
+-add a sized box to the end of the list view in order to be able to see the last elements
 - build functionalities (edit todos)
   - use smooth pop-up window to edit and view tasks by clicking on a task
     - include task category and importancy

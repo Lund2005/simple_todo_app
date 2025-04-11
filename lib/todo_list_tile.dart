@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:simple_todo/util/color_palette.dart';
 
 class TodoListTile extends StatelessWidget {
   //variables
@@ -17,25 +18,42 @@ class TodoListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ColorScheme scheme = Theme.of(context).colorScheme;
-
     return Padding(
       padding: const EdgeInsets.only(left: 16, right: 16, top: 12),
       child: Container(
         padding: EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: scheme.surfaceContainer,
+          color: ColorPalette.container,
           borderRadius: BorderRadius.circular(16),
         ),
         child: Row(
           children: [
             //Task checkbox
-            Checkbox(value: taskCompleted, onChanged: onChanged),
+            Transform.scale(
+              scale: 1.2,
+              child: Checkbox(
+                value: taskCompleted,
+                onChanged: onChanged,
+                checkColor: ColorPalette.onPrimary,
+                activeColor: ColorPalette.primary,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  side: BorderSide(color: ColorPalette.tertiary),
+                ),
+              ),
+            ),
             //Task name
             Text(
               taskName,
               style: TextStyle(
-                color: scheme.onSurface,
+                color:
+                    taskCompleted
+                        ? ColorPalette.tertiary
+                        : ColorPalette.onContainer,
+                decorationColor:
+                    taskCompleted
+                        ? ColorPalette.tertiary
+                        : ColorPalette.onContainer,
                 fontSize: 14,
                 decoration:
                     taskCompleted
@@ -51,7 +69,7 @@ class TodoListTile extends StatelessWidget {
                 //drag handle with icon
                 child: ReorderableDragStartListener(
                   index: index,
-                  child: Icon(Icons.drag_handle),
+                  child: Icon(Icons.drag_handle, color: ColorPalette.tertiary),
                 ),
               ),
             ),
