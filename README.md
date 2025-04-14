@@ -4,12 +4,14 @@
 A simple todo app with the intention to learn flutter's basic local storage systems.
 
 ## Next steps
-- group task by active and completed tasks
+- add transformation and shadow when dragging a task
 - build functionalities (edit todos)
   - use smooth pop-up window to edit and view tasks by clicking on a task
     - include task category and importancy
 - integrate local storage system for todos
 - add different buttons for category filtering at the top (with "All tasks" as the default state)
+- clean up code
+  - extract enhanced list view into own widget and script
 
 ## Possible further stuff
 - focus on user interface and experience

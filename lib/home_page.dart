@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:simple_todo/listview_subheading.dart';
 import 'package:simple_todo/sending_textfield.dart';
 import 'package:simple_todo/todo_list_tile.dart';
 import 'package:simple_todo/util/color_palette.dart';
@@ -12,27 +13,24 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   //variables
-  List<Task> todos = [
-    Task(name: 'Task 1'),
-    Task(name: 'Task 2'),
-    Task(name: 'Task 3', done: true),
-    Task(name: 'Task 1'),
-    Task(name: 'Task 2'),
-    Task(name: 'Task 3'),
-    Task(name: 'Task 1'),
-    Task(name: 'Task 2'),
-    Task(name: 'Task 3', done: true),
-    Task(name: 'Task 1'),
-    Task(name: 'Task 2'),
-    Task(name: 'Task 3', done: true),
-  ];
+  List<Task> todos = [Task(name: 'Task 1'), Task(name: 'Task 2')];
+  List<Task> finished = [Task(name: 'Task 3')];
+
   final _addingFieldController = TextEditingController();
 
   //checkbox of a task was changed
   void checkBoxChanged(bool? value, int index) {
-    setState(() {
-      todos[index].done = value!;
-    });
+    if (value!) {
+      setState(() {
+        finished.insert(0, todos[index]);
+        todos.removeAt(index);
+      });
+    } else {
+      setState(() {
+        todos.add(finished[index]);
+        finished.removeAt(index);
+      });
+    }
   }
 
   //create new task
@@ -44,14 +42,25 @@ class _HomePageState extends State<HomePage> {
     _addingFieldController.clear();
   }
 
-  //reorder task list after user reordered list view tiles
-  void reorderList(oldindex, newindex) {
+  //reorder todos list after user reordered list view tiles
+  void reorderTodos(oldindex, newindex) {
     if (oldindex < newindex) {
       newindex--;
     }
     setState(() {
       var element = todos.removeAt(oldindex);
       todos.insert(newindex, element);
+    });
+  }
+
+  //reorder finished tasks
+  void reorderFinished(oldindex, newindex) {
+    if (oldindex < newindex) {
+      newindex--;
+    }
+    setState(() {
+      var element = finished.removeAt(oldindex);
+      finished.insert(newindex, element);
     });
   }
 
@@ -77,6 +86,7 @@ class _HomePageState extends State<HomePage> {
 
             child: ListView(
               children: [
+                //tasks in progress
                 ReorderableListView.builder(
                   physics: ScrollPhysics(),
                   shrinkWrap: true,
@@ -84,7 +94,7 @@ class _HomePageState extends State<HomePage> {
                   proxyDecorator: (child, index, animation) {
                     return Material(color: Colors.transparent, child: child);
                   },
-                  onReorder: reorderList,
+                  onReorder: reorderTodos,
                   itemCount: todos.length,
                   itemBuilder: (context, index) {
                     Task cur = todos[index];
@@ -130,12 +140,79 @@ class _HomePageState extends State<HomePage> {
                         key: ValueKey(cur.id),
                         index: index,
                         taskName: cur.name,
-                        taskCompleted: cur.done,
+                        taskCompleted: false,
+                        environmentalContent: todos,
                         onChanged: (value) => checkBoxChanged(value, index),
                       ),
                     );
                   },
                 ),
+                //finished subheading
+                finished.isNotEmpty
+                    ? ListSubheading(text: 'Finished tasks')
+                    : SizedBox(height: 0),
+                //listview for finished tasks
+                ReorderableListView.builder(
+                  physics: ScrollPhysics(),
+                  shrinkWrap: true,
+                  buildDefaultDragHandles: false,
+                  proxyDecorator: (child, index, animation) {
+                    return Material(color: Colors.transparent, child: child);
+                  },
+                  onReorder: reorderFinished,
+                  itemCount: finished.length,
+                  itemBuilder: (context, index) {
+                    Task cur = finished[index];
+                    return Dismissible(
+                      //Dismissable key, needs to be unique
+                      key: Key(cur.id),
+                      direction: DismissDirection.endToStart,
+                      background: Padding(
+                        padding: const EdgeInsets.only(
+                          left: 16,
+                          right: 16,
+                          top: 12,
+                        ),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: ColorPalette.errorContainer,
+                            borderRadius: BorderRadius.circular(16),
+                            gradient: LinearGradient(
+                              colors: [
+                                ColorPalette.background,
+                                ColorPalette.errorContainer,
+                              ],
+                              begin: Alignment.center,
+                            ),
+                          ),
+                          alignment: Alignment.centerRight,
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 20),
+                            child: Icon(
+                              Icons.delete,
+                              color: ColorPalette.error,
+                            ),
+                          ),
+                        ),
+                      ),
+                      onDismissed: (direction) {
+                        setState(() {
+                          finished.removeAt(index);
+                        });
+                      },
+                      child: TodoListTile(
+                        //List tile key (needs to be specific to the index)
+                        key: ValueKey(cur.id),
+                        index: index,
+                        taskName: cur.name,
+                        taskCompleted: true,
+                        environmentalContent: finished,
+                        onChanged: (value) => checkBoxChanged(value, index),
+                      ),
+                    );
+                  },
+                ),
+                //sized box to be able to view all of the tasks
                 SizedBox(height: 128),
               ],
             ),
@@ -155,7 +232,6 @@ class _HomePageState extends State<HomePage> {
 class Task {
   String id;
   String name;
-  bool done;
 
-  Task({required this.name, this.done = false}) : id = UniqueKey().toString();
+  Task({required this.name}) : id = UniqueKey().toString();
 }

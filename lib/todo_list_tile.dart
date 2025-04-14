@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:simple_todo/util/color_palette.dart';
 
-class TodoListTile extends StatelessWidget {
+class TodoListTile extends StatefulWidget {
   //variables
   final int index;
   final String taskName;
   final bool taskCompleted;
   final Function(bool?)? onChanged;
+  final List environmentalContent;
 
   const TodoListTile({
     super.key,
@@ -14,7 +15,21 @@ class TodoListTile extends StatelessWidget {
     required this.taskName,
     required this.taskCompleted,
     required this.onChanged,
+    required this.environmentalContent,
   });
+
+  @override
+  State<TodoListTile> createState() => _TodoListTileState();
+}
+
+class _TodoListTileState extends State<TodoListTile> {
+  bool enableDragging = true;
+
+  void setDragging(bool enabled) {
+    setState(() {
+      enableDragging = enabled;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +47,8 @@ class TodoListTile extends StatelessWidget {
             Transform.scale(
               scale: 1.2,
               child: Checkbox(
-                value: taskCompleted,
-                onChanged: onChanged,
+                value: widget.taskCompleted,
+                onChanged: widget.onChanged,
                 checkColor: ColorPalette.onPrimary,
                 activeColor: ColorPalette.primary,
                 shape: RoundedRectangleBorder(
@@ -44,19 +59,19 @@ class TodoListTile extends StatelessWidget {
             ),
             //Task name
             Text(
-              taskName,
+              widget.taskName,
               style: TextStyle(
                 color:
-                    taskCompleted
+                    widget.taskCompleted
                         ? ColorPalette.tertiary
                         : ColorPalette.onContainer,
                 decorationColor:
-                    taskCompleted
+                    widget.taskCompleted
                         ? ColorPalette.tertiary
                         : ColorPalette.onContainer,
                 fontSize: 14,
                 decoration:
-                    taskCompleted
+                    widget.taskCompleted
                         ? TextDecoration.lineThrough
                         : TextDecoration.none,
               ),
@@ -68,7 +83,8 @@ class TodoListTile extends StatelessWidget {
                 alignment: Alignment.centerRight,
                 //drag handle with icon
                 child: ReorderableDragStartListener(
-                  index: index,
+                  enabled: widget.environmentalContent.length > 1,
+                  index: widget.index,
                   child: Icon(Icons.drag_handle, color: ColorPalette.tertiary),
                 ),
               ),
