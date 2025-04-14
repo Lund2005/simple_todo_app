@@ -64,6 +64,21 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  //proxy generator for task animation
+  Widget proxyDecoratorGenerator(child, index, animation) {
+    return AnimatedBuilder(
+      animation: animation,
+      builder: (context, child) {
+        double rotation = -0.04 * animation.value;
+        return Material(
+          color: Colors.transparent,
+          child: Transform.rotate(angle: rotation, child: child),
+        );
+      },
+      child: child,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,9 +106,7 @@ class _HomePageState extends State<HomePage> {
                   physics: ScrollPhysics(),
                   shrinkWrap: true,
                   buildDefaultDragHandles: false,
-                  proxyDecorator: (child, index, animation) {
-                    return Material(color: Colors.transparent, child: child);
-                  },
+                  proxyDecorator: proxyDecoratorGenerator,
                   onReorder: reorderTodos,
                   itemCount: todos.length,
                   itemBuilder: (context, index) {
@@ -156,9 +169,7 @@ class _HomePageState extends State<HomePage> {
                   physics: ScrollPhysics(),
                   shrinkWrap: true,
                   buildDefaultDragHandles: false,
-                  proxyDecorator: (child, index, animation) {
-                    return Material(color: Colors.transparent, child: child);
-                  },
+                  proxyDecorator: proxyDecoratorGenerator,
                   onReorder: reorderFinished,
                   itemCount: finished.length,
                   itemBuilder: (context, index) {
