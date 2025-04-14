@@ -23,14 +23,6 @@ class TodoListTile extends StatefulWidget {
 }
 
 class _TodoListTileState extends State<TodoListTile> {
-  bool enableDragging = true;
-
-  void setDragging(bool enabled) {
-    setState(() {
-      enableDragging = enabled;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -40,6 +32,9 @@ class _TodoListTileState extends State<TodoListTile> {
         decoration: BoxDecoration(
           color: ColorPalette.container,
           borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            //BoxShadow(color: Colors.black26, spreadRadius: 0, blurRadius: 15),
+          ],
         ),
         child: Row(
           children: [
