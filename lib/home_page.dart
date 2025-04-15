@@ -101,6 +101,21 @@ class _HomePageState extends State<HomePage> {
 
             child: ListView(
               children: [
+                //no open tasks message
+                todos.isEmpty
+                    ? Padding(
+                      padding: const EdgeInsets.only(top: 38, bottom: 18),
+                      child: Text(
+                        'No open tasks, go and enjoy your life.',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: ColorPalette.secondary,
+                          fontStyle: FontStyle.italic,
+                          fontSize: 14,
+                        ),
+                      ),
+                    )
+                    : SizedBox(height: 0),
                 //tasks in progress
                 ReorderableListView.builder(
                   physics: ScrollPhysics(),

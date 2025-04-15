@@ -14,6 +14,7 @@ A simple todo app with the intention to learn flutter's basic local storage syst
 
 ## Possible further stuff
 - focus on user interface and experience
+  - improve check animation (currently not visible due to 'finished tasks' grouping)
   - increase dragging handle size
   - put list view in safe area (currently collides with phone navigation bar)
   - animate widgets smoothly
