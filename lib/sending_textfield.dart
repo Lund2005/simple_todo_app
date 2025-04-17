@@ -27,7 +27,7 @@ class _SendingTextFieldState extends State<SendingTextField> {
               controller: widget.addingFieldController,
               decoration: InputDecoration(
                 hintText: 'What do you want to do?',
-                hintStyle: TextStyle(color: ColorPalette.tertiary),
+                hintStyle: TextStyle(color: ColorPalette.secondary),
                 contentPadding: EdgeInsets.only(
                   left: 20,
                   right: 20,
@@ -35,15 +35,16 @@ class _SendingTextFieldState extends State<SendingTextField> {
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(50),
-                  borderSide: BorderSide(color: ColorPalette.disabled),
+                  borderSide: BorderSide(color: ColorPalette.tertiary),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(50),
-                  borderSide: BorderSide(color: ColorPalette.disabled),
+                  borderSide: BorderSide(color: ColorPalette.tertiary),
                 ),
                 fillColor: ColorPalette.background,
               ),
               onChanged: (value) => setState(() {}),
+              style: TextStyle(color: ColorPalette.onBackground),
             ),
           ),
           SizedBox(width: 4),

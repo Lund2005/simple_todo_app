@@ -73,15 +73,29 @@ class _TodoListTileState extends State<TodoListTile> {
             ),
             SizedBox(),
             Expanded(
-              child: Container(
-                padding: EdgeInsets.only(right: 10),
-                alignment: Alignment.centerRight,
-                //drag handle with icon
-                child: ReorderableDragStartListener(
-                  enabled: widget.environmentalContent.length > 1,
-                  index: widget.index,
-                  child: Icon(Icons.drag_handle, color: ColorPalette.tertiary),
-                ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  widget.taskCompleted
+                      ? SizedBox(width: 0)
+                      : Padding(
+                        padding: EdgeInsets.only(right: 10),
+                        child: Icon(Icons.edit, color: ColorPalette.tertiary),
+                      ),
+                  Container(
+                    padding: EdgeInsets.only(right: 10),
+                    alignment: Alignment.centerRight,
+                    //drag handle with icon
+                    child: ReorderableDragStartListener(
+                      enabled: widget.environmentalContent.length > 1,
+                      index: widget.index,
+                      child: Icon(
+                        Icons.drag_handle,
+                        color: ColorPalette.tertiary,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ],

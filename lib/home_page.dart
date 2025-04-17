@@ -79,6 +79,32 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  //display task edit window
+  void displayEditWindow(int taskIndex) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+            color: ColorPalette.background,
+          ),
+          padding: EdgeInsets.only(left: 24, right: 24, top: 20, bottom: 35),
+          width: MediaQuery.of(context).size.width,
+          height: 300,
+          child: Text(
+            todos[taskIndex].name,
+            style: TextStyle(
+              color: ColorPalette.onBackground,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ), //add edit menu here
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -109,7 +135,7 @@ class _HomePageState extends State<HomePage> {
                         'No open tasks, go and enjoy your life.',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          color: ColorPalette.secondary,
+                          color: ColorPalette.tertiary,
                           fontStyle: FontStyle.italic,
                           fontSize: 14,
                         ),
@@ -163,14 +189,20 @@ class _HomePageState extends State<HomePage> {
                           todos.removeAt(index);
                         });
                       },
-                      child: TodoListTile(
-                        //List tile key (needs to be specific to the index)
-                        key: ValueKey(cur.id),
-                        index: index,
-                        taskName: cur.name,
-                        taskCompleted: false,
-                        environmentalContent: todos,
-                        onChanged: (value) => checkBoxChanged(value, index),
+                      //Gesture detector for detecting clicks on task tile (edit task)
+                      child: GestureDetector(
+                        onTap: () {
+                          displayEditWindow(index);
+                        },
+                        child: TodoListTile(
+                          //List tile key (needs to be specific to the index)
+                          key: ValueKey(cur.id),
+                          index: index,
+                          taskName: cur.name,
+                          taskCompleted: false,
+                          environmentalContent: todos,
+                          onChanged: (value) => checkBoxChanged(value, index),
+                        ),
                       ),
                     );
                   },
