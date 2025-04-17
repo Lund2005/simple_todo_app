@@ -15,6 +15,8 @@ A simple todo app with the intention to learn flutter's basic local storage syst
 ## Possible further stuff
 - focus on user interface and experience
   - click animation for editing tasks
+  - display 'no open tasks' only when page empty and with an image
+  - rethink 'no open tasks message', there should also be one when there are finished tasks but none in progress
   - improve check animation (currently not visible due to 'finished tasks' grouping)
   - increase dragging handle size
   - put list view in safe area (currently collides with phone navigation bar)
