@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:simple_todo/edit_window.dart';
 import 'package:simple_todo/listview_subheading.dart';
 import 'package:simple_todo/sending_textfield.dart';
 import 'package:simple_todo/todo_list_tile.dart';
@@ -89,17 +90,10 @@ class _HomePageState extends State<HomePage> {
             borderRadius: BorderRadius.circular(16),
             color: ColorPalette.background,
           ),
-          padding: EdgeInsets.only(left: 24, right: 24, top: 20, bottom: 35),
+          padding: EdgeInsets.only(left: 12, right: 12, top: 12, bottom: 24),
           width: MediaQuery.of(context).size.width,
-          height: 300,
-          child: Text(
-            todos[taskIndex].name,
-            style: TextStyle(
-              color: ColorPalette.onBackground,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
-          ), //add edit menu here
+          height: 400,
+          child: EditWindow(taskName: todos[taskIndex].name),
         );
       },
     );
