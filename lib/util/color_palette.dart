@@ -7,7 +7,7 @@ for flutters build in color system.
 */
 
 class ColorPalette {
-  static Color primary = const Color.fromARGB(255, 126, 83, 255);
+  static Color primary = const Color.fromARGB(255, 79, 60, 201);
   static Color secondary = Color.fromARGB(255, 45, 45, 45);
   static Color tertiary = Color.fromARGB(255, 161, 161, 161);
 
