@@ -18,6 +18,7 @@ class _HomePageState extends State<HomePage> {
   List<Task> finished = [Task(name: 'Task 3')];
 
   final _addingFieldController = TextEditingController();
+  final _editingFieldController = TextEditingController();
 
   //checkbox of a task was changed
   void checkBoxChanged(bool? value, int index) {
@@ -90,10 +91,22 @@ class _HomePageState extends State<HomePage> {
             borderRadius: BorderRadius.circular(16),
             color: ColorPalette.background,
           ),
-          padding: EdgeInsets.only(left: 12, right: 12, top: 12, bottom: 24),
+          padding: EdgeInsets.only(
+            left: 12,
+            right: 12,
+            top: 12,
+            bottom:
+                MediaQuery.of(context).viewInsets.bottom +
+                24, //adjusting to keyboard
+          ),
           width: MediaQuery.of(context).size.width,
-          height: 400,
-          child: EditWindow(taskName: todos[taskIndex].name),
+          height:
+              MediaQuery.of(context).viewInsets.bottom +
+              400, //adjusting to keyboard
+          child: EditWindow(
+            taskName: todos[taskIndex].name,
+            textController: _editingFieldController,
+          ),
         );
       },
     );

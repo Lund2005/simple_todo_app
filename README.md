@@ -18,6 +18,7 @@ A simple todo app with the intention to learn flutter's basic local storage syst
 ## Possible further stuff
 - focus on user interface and experience
   - make phone bar at top transparent and invert colors (dark icons)
+  - make adding textfield not autoselect after editing a task on mobile
   - click animation for editing tasks
   - improve check animation (currently not visible due to 'finished tasks' grouping)
   - increase dragging handle size

@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:simple_todo/util/color_palette.dart';
 
 class EditWindow extends StatefulWidget {
   final String taskName;
+  final TextEditingController textController;
 
-  const EditWindow({required this.taskName, super.key});
+  const EditWindow({
+    required this.taskName,
+    required this.textController,
+    super.key,
+  });
 
   @override
   State<EditWindow> createState() => _EditWindowState();
@@ -55,8 +61,23 @@ class _EditWindowState extends State<EditWindow> {
         ),
         //content
         Padding(
-          padding: const EdgeInsets.only(left: 20, right: 20, top: 12),
-          child: Column(children: []),
+          padding: const EdgeInsets.only(left: 20, right: 20),
+          child: Column(
+            children: [
+              TextFormField(
+                initialValue: widget.taskName,
+                enabled: editing ? true : false,
+                //controller: widget.textController,
+                decoration: InputDecoration(fillColor: ColorPalette.background),
+                onChanged: (value) => setState(() {}),
+                style: TextStyle(
+                  color: ColorPalette.onBackground,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
         ),
       ],
     );
