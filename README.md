@@ -9,6 +9,7 @@ A simple todo app with the intention to learn flutter's basic local storage syst
   - edit task name
   - edit task category and importancy
   - maybe description
+- fix text overflow on long tasks
 - integrate local storage system for todos
 - add different buttons for category filtering at the top (with "All tasks" as the default state)
 - clean up code
@@ -16,6 +17,7 @@ A simple todo app with the intention to learn flutter's basic local storage syst
 
 ## Possible further stuff
 - focus on user interface and experience
+  - make phone bar at top transparent and invert colors (dark icons)
   - click animation for editing tasks
   - improve check animation (currently not visible due to 'finished tasks' grouping)
   - increase dragging handle size
