@@ -83,6 +83,7 @@ class _HomePageState extends State<HomePage> {
 
   //display task edit window
   void displayEditWindow(int taskIndex) {
+    _editingFieldController.text = todos[taskIndex].name;
     showModalBottomSheet(
       context: context,
       builder: (context) {
@@ -104,8 +105,13 @@ class _HomePageState extends State<HomePage> {
               MediaQuery.of(context).viewInsets.bottom +
               400, //adjusting to keyboard
           child: EditWindow(
-            taskName: todos[taskIndex].name,
             textController: _editingFieldController,
+            onSave: () {
+              setState(() {
+                todos[taskIndex].name = _editingFieldController.text;
+              });
+              _editingFieldController.clear();
+            },
           ),
         );
       },
@@ -138,7 +144,7 @@ class _HomePageState extends State<HomePage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Image.asset(
-                          'images/empty_content_image.png',
+                          'images/empty_state.png',
                           width: 300,
                           height: 300,
                         ),

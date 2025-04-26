@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:simple_todo/util/color_palette.dart';
 
 class EditWindow extends StatefulWidget {
-  final String taskName;
   final TextEditingController textController;
+  final Function onSave;
 
   const EditWindow({
-    required this.taskName,
     required this.textController,
+    required this.onSave,
     super.key,
   });
 
@@ -51,7 +51,7 @@ class _EditWindowState extends State<EditWindow> {
                     SizedBox(width: 0),
                     IconButton(
                       onPressed: () {
-                        //TODO save changes and close modal bottom sheet
+                        widget.onSave();
                         Navigator.pop(context);
                       },
                       icon: Icon(Icons.check),
@@ -65,9 +65,8 @@ class _EditWindowState extends State<EditWindow> {
           child: Column(
             children: [
               TextFormField(
-                initialValue: widget.taskName,
                 enabled: editing ? true : false,
-                //controller: widget.textController,
+                controller: widget.textController,
                 decoration: InputDecoration(fillColor: ColorPalette.background),
                 onChanged: (value) => setState(() {}),
                 style: TextStyle(
