@@ -110,7 +110,9 @@ class _HomePageState extends State<HomePage> {
               setState(() {
                 todos[taskIndex].name = _editingFieldController.text;
               });
-              _editingFieldController.clear();
+              Future.delayed(const Duration(milliseconds: 300), () {
+                _editingFieldController.clear();
+              });
             },
           ),
         );
