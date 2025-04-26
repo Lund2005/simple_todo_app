@@ -4,14 +4,14 @@
 A simple todo app with the intention to learn flutter's basic local storage systems.
 
 ## Next steps
-- click on a task to view, then click pencil to edit
-- build functionalities (edit todos)
-  - edit task name
-  - edit task category and importancy
-  - maybe description
+- edit task importancy, category and description
 - fix text overflow on long tasks
+- show task importancy and category (and maybe decription in task list)
+
 - integrate local storage system for todos
+
 - add different buttons for category filtering at the top (with "All tasks" as the default state)
+
 - clean up code
   - extract enhanced list view into own widget and script
 
