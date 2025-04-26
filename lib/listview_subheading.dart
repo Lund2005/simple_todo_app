@@ -8,15 +8,12 @@ class ListSubheading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 22, right: 22, top: 12),
-      child: Text(
-        text,
-        style: TextStyle(
-          color: ColorPalette.onBackground,
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-        ),
+    return Text(
+      text,
+      style: TextStyle(
+        color: ColorPalette.onBackground,
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
       ),
     );
   }

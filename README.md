@@ -4,7 +4,6 @@
 A simple todo app with the intention to learn flutter's basic local storage systems.
 
 ## Next steps
-- add clear finished tasks button
 - click on a task to view, then click pencil to edit
 - build functionalities (edit todos)
   - edit task name
@@ -27,7 +26,6 @@ A simple todo app with the intention to learn flutter's basic local storage syst
   - fix adding bar lagging when keyboard appears
   - fix gap when deleting task
   - box shadow when reordering tasks
-- auto delete task after they have been finished for a certain time
 
 ## References
 This project is based on several tutorials in order to start into flutter development. Check out the following references:

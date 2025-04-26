@@ -214,7 +214,52 @@ class _HomePageState extends State<HomePage> {
                         ),
                         //finished subheading
                         finished.isNotEmpty
-                            ? ListSubheading(text: 'Finished tasks')
+                            ? Padding(
+                              padding: const EdgeInsets.only(
+                                left: 22,
+                                right: 22,
+                                top: 12,
+                              ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  ListSubheading(text: 'Finished tasks'),
+                                  OutlinedButton(
+                                    style: ButtonStyle(
+                                      minimumSize: WidgetStatePropertyAll(
+                                        Size(0, 28),
+                                      ),
+                                      tapTargetSize:
+                                          MaterialTapTargetSize.shrinkWrap,
+                                      overlayColor: WidgetStatePropertyAll(
+                                        ColorPalette.container,
+                                      ),
+                                      padding: WidgetStatePropertyAll(
+                                        EdgeInsets.only(left: 14, right: 14),
+                                      ),
+                                    ),
+                                    onPressed: () {
+                                      Future.delayed(
+                                        const Duration(milliseconds: 300),
+                                        () {
+                                          setState(() {
+                                            finished.clear();
+                                          });
+                                        },
+                                      );
+                                    },
+                                    child: Text(
+                                      'Clear finished tasks',
+                                      style: TextStyle(
+                                        color: ColorPalette.secondary,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
                             : SizedBox(height: 0),
                         //listview for finished tasks
                         ReorderableListView.builder(
