@@ -25,4 +25,8 @@ class ColorPalette {
 
   static Color onBackground = Color.fromARGB(255, 0, 0, 0);
   static Color onContainer = Color.fromARGB(255, 0, 0, 0);
+
+  static Color lowImportancy = Colors.green;
+  static Color midImportancy = Colors.yellow;
+  static Color highImportany = Colors.red;
 }

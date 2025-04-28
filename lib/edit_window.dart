@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:simple_todo/color_tag.dart';
+import 'package:simple_todo/small_button.dart';
 import 'package:simple_todo/util/color_palette.dart';
 
 class EditWindow extends StatefulWidget {
@@ -63,6 +65,7 @@ class _EditWindowState extends State<EditWindow> {
         Padding(
           padding: const EdgeInsets.only(left: 20, right: 20),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextFormField(
                 enabled: editing ? true : false,
@@ -74,6 +77,32 @@ class _EditWindowState extends State<EditWindow> {
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
+              ),
+              SizedBox(height: 18),
+              Text(
+                'Importancy',
+                style: TextStyle(color: ColorPalette.onBackground),
+              ),
+              SizedBox(height: 6),
+              Row(
+                children: [
+                  SmallButton(child: Text('None'), onClick: () {}),
+                  SizedBox(width: 10),
+                  SmallButton(
+                    child: ColorTag(color: ColorPalette.lowImportancy),
+                    onClick: () {},
+                  ),
+                  SizedBox(width: 10),
+                  SmallButton(
+                    child: ColorTag(color: ColorPalette.midImportancy),
+                    onClick: () {},
+                  ),
+                  SizedBox(width: 10),
+                  SmallButton(
+                    child: ColorTag(color: ColorPalette.highImportany),
+                    onClick: () {},
+                  ),
+                ],
               ),
             ],
           ),
