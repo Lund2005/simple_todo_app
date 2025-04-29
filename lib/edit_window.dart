@@ -19,6 +19,9 @@ class EditWindow extends StatefulWidget {
 
 class _EditWindowState extends State<EditWindow> {
   bool editing = false;
+  int selectedIndex = 0;
+
+  void selectImportancy() {}
 
   @override
   Widget build(BuildContext context) {
@@ -86,21 +89,31 @@ class _EditWindowState extends State<EditWindow> {
               SizedBox(height: 6),
               Row(
                 children: [
-                  SmallButton(child: Text('None'), onClick: () {}),
+                  SmallButton(
+                    onClick: editing ? selectImportancy : null,
+                    checked: selectedIndex == 0,
+                    child: Text(
+                      'None',
+                      style: TextStyle(color: ColorPalette.onBackground),
+                    ),
+                  ),
                   SizedBox(width: 10),
                   SmallButton(
+                    onClick: editing ? selectImportancy : null,
+                    checked: selectedIndex == 1,
                     child: ColorTag(color: ColorPalette.lowImportancy),
-                    onClick: () {},
                   ),
                   SizedBox(width: 10),
                   SmallButton(
+                    onClick: editing ? selectImportancy : null,
+                    checked: selectedIndex == 2,
                     child: ColorTag(color: ColorPalette.midImportancy),
-                    onClick: () {},
                   ),
                   SizedBox(width: 10),
                   SmallButton(
+                    onClick: editing ? selectImportancy : null,
+                    checked: selectedIndex == 3,
                     child: ColorTag(color: ColorPalette.highImportany),
-                    onClick: () {},
                   ),
                 ],
               ),
