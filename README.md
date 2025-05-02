@@ -4,10 +4,7 @@
 A simple todo app with the intention to learn flutter's basic local storage systems.
 
 ## Next steps
-- edit task importancy
-- fix text overflow on long tasks
-- show task importancy in task list
-
+- user should not be able to edit a tasks name to an empty string
 - integrate local storage system for todos
 
 ## Possible further stuff

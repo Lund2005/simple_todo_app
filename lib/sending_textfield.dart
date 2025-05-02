@@ -27,7 +27,7 @@ class _SendingTextFieldState extends State<SendingTextField> {
               controller: widget.addingFieldController,
               decoration: InputDecoration(
                 hintText: 'What do you want to do?',
-                hintStyle: TextStyle(color: ColorPalette.secondary),
+                hintStyle: TextStyle(color: ColorPalette.onBackground),
                 contentPadding: EdgeInsets.only(
                   left: 20,
                   right: 20,

@@ -30,7 +30,9 @@ class _SmallButtonState extends State<SmallButton> {
       onPressed: widget.onClick,
       child: Row(
         children: [
-          widget.checked ? Icon(Icons.check) : SizedBox(),
+          widget.checked
+              ? Icon(Icons.check, color: ColorPalette.secondary)
+              : SizedBox(),
           SizedBox(width: 4),
           widget.child,
         ],

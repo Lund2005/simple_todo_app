@@ -86,34 +86,33 @@ class _HomePageState extends State<HomePage> {
     _editingFieldController.text = todos[taskIndex].name;
     showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
       builder: (context) {
-        return Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
-            color: ColorPalette.background,
-          ),
+        return Padding(
           padding: EdgeInsets.only(
-            left: 12,
-            right: 12,
-            top: 12,
-            bottom:
-                MediaQuery.of(context).viewInsets.bottom +
-                24, //adjusting to keyboard
+            bottom: MediaQuery.of(context).viewInsets.bottom,
           ),
-          width: MediaQuery.of(context).size.width,
-          height:
-              MediaQuery.of(context).viewInsets.bottom +
-              400, //adjusting to keyboard
-          child: EditWindow(
-            textController: _editingFieldController,
-            onSave: () {
-              setState(() {
-                todos[taskIndex].name = _editingFieldController.text;
-              });
-              Future.delayed(const Duration(milliseconds: 300), () {
-                _editingFieldController.clear();
-              });
-            },
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+              color: ColorPalette.background,
+            ),
+            padding: EdgeInsets.only(left: 12, right: 12, top: 12, bottom: 10),
+            width: MediaQuery.of(context).size.width,
+            height: 280,
+            child: EditWindow(
+              textController: _editingFieldController,
+              previousImportancyIndex: todos[taskIndex].importancy,
+              onSave: (importancyIndex) {
+                setState(() {
+                  todos[taskIndex].name = _editingFieldController.text;
+                  todos[taskIndex].importancy = importancyIndex;
+                });
+                Future.delayed(const Duration(milliseconds: 300), () {
+                  _editingFieldController.clear();
+                });
+              },
+            ),
           ),
         );
       },
@@ -212,6 +211,7 @@ class _HomePageState extends State<HomePage> {
                                   index: index,
                                   taskName: cur.name,
                                   taskCompleted: false,
+                                  importancy: cur.importancy,
                                   environmentalContent: todos,
                                   onChanged:
                                       (value) => checkBoxChanged(value, index),
@@ -322,6 +322,7 @@ class _HomePageState extends State<HomePage> {
                                 index: index,
                                 taskName: cur.name,
                                 taskCompleted: true,
+                                importancy: cur.importancy,
                                 environmentalContent: finished,
                                 onChanged:
                                     (value) => checkBoxChanged(value, index),
@@ -349,6 +350,7 @@ class _HomePageState extends State<HomePage> {
 class Task {
   String id;
   String name;
+  int importancy = 0;
 
   Task({required this.name}) : id = UniqueKey().toString();
 }

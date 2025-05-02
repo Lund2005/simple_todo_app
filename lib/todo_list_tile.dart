@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:simple_todo/color_tag.dart';
 import 'package:simple_todo/util/color_palette.dart';
 
 class TodoListTile extends StatefulWidget {
@@ -6,6 +7,7 @@ class TodoListTile extends StatefulWidget {
   final int index;
   final String taskName;
   final bool taskCompleted;
+  final int importancy;
   final Function(bool?)? onChanged;
   final List environmentalContent;
 
@@ -14,6 +16,7 @@ class TodoListTile extends StatefulWidget {
     required this.index,
     required this.taskName,
     required this.taskCompleted,
+    required this.importancy,
     required this.onChanged,
     required this.environmentalContent,
   });
@@ -53,35 +56,52 @@ class _TodoListTileState extends State<TodoListTile> {
               ),
             ),
             //Task name
-            Text(
-              widget.taskName,
-              style: TextStyle(
-                color:
-                    widget.taskCompleted
-                        ? ColorPalette.tertiary
-                        : ColorPalette.onContainer,
-                decorationColor:
-                    widget.taskCompleted
-                        ? ColorPalette.tertiary
-                        : ColorPalette.onContainer,
-                fontSize: 14,
-                decoration:
-                    widget.taskCompleted
-                        ? TextDecoration.lineThrough
-                        : TextDecoration.none,
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  widget.importancy != 0
+                      ? ColorTag(
+                        width: 32,
+                        height: 8,
+                        color: ColorPalette.colorFromImportancy(
+                          widget.importancy,
+                        ),
+                      )
+                      : SizedBox(height: 0),
+                  Text(
+                    widget.taskName,
+                    overflow: TextOverflow.fade,
+                    softWrap: false,
+                    style: TextStyle(
+                      color:
+                          widget.taskCompleted
+                              ? ColorPalette.tertiary
+                              : ColorPalette.onContainer,
+                      decorationColor:
+                          widget.taskCompleted
+                              ? ColorPalette.tertiary
+                              : ColorPalette.onContainer,
+                      fontSize: 14,
+                      decoration:
+                          widget.taskCompleted
+                              ? TextDecoration.lineThrough
+                              : TextDecoration.none,
+                    ),
+                  ),
+                ],
               ),
             ),
-            SizedBox(),
-            Expanded(
-              child: Container(
-                padding: EdgeInsets.only(right: 10),
-                alignment: Alignment.centerRight,
-                //drag handle with icon
-                child: ReorderableDragStartListener(
-                  enabled: widget.environmentalContent.length > 1,
-                  index: widget.index,
-                  child: Icon(Icons.drag_handle, color: ColorPalette.tertiary),
-                ),
+            SizedBox(width: 10),
+            Container(
+              padding: EdgeInsets.only(right: 10),
+              alignment: Alignment.centerRight,
+              //drag handle with icon
+              child: ReorderableDragStartListener(
+                enabled: widget.environmentalContent.length > 1,
+                index: widget.index,
+                child: Icon(Icons.drag_handle, color: ColorPalette.tertiary),
               ),
             ),
           ],

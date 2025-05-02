@@ -5,10 +5,12 @@ import 'package:simple_todo/util/color_palette.dart';
 
 class EditWindow extends StatefulWidget {
   final TextEditingController textController;
-  final Function onSave;
+  final Function(int) onSave;
+  final int previousImportancyIndex;
 
   const EditWindow({
     required this.textController,
+    required this.previousImportancyIndex,
     required this.onSave,
     super.key,
   });
@@ -19,7 +21,13 @@ class EditWindow extends StatefulWidget {
 
 class _EditWindowState extends State<EditWindow> {
   bool editing = false;
-  int selectedIndex = 0;
+  late int importancyIndex;
+
+  @override
+  void initState() {
+    super.initState();
+    importancyIndex = widget.previousImportancyIndex;
+  }
 
   void selectImportancy() {}
 
@@ -56,7 +64,8 @@ class _EditWindowState extends State<EditWindow> {
                     SizedBox(width: 0),
                     IconButton(
                       onPressed: () {
-                        widget.onSave();
+                        print(importancyIndex);
+                        widget.onSave(importancyIndex);
                         Navigator.pop(context);
                       },
                       icon: Icon(Icons.check),
@@ -73,7 +82,12 @@ class _EditWindowState extends State<EditWindow> {
               TextFormField(
                 enabled: editing ? true : false,
                 controller: widget.textController,
-                decoration: InputDecoration(fillColor: ColorPalette.background),
+                decoration: InputDecoration(
+                  fillColor: ColorPalette.background,
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: ColorPalette.primary),
+                  ),
+                ),
                 onChanged: (value) => setState(() {}),
                 style: TextStyle(
                   color: ColorPalette.onBackground,
@@ -90,8 +104,15 @@ class _EditWindowState extends State<EditWindow> {
               Row(
                 children: [
                   SmallButton(
-                    onClick: editing ? selectImportancy : null,
-                    checked: selectedIndex == 0,
+                    onClick:
+                        editing
+                            ? () {
+                              setState(() {
+                                importancyIndex = 0;
+                              });
+                            }
+                            : null,
+                    checked: importancyIndex == 0,
                     child: Text(
                       'None',
                       style: TextStyle(color: ColorPalette.onBackground),
@@ -99,20 +120,41 @@ class _EditWindowState extends State<EditWindow> {
                   ),
                   SizedBox(width: 10),
                   SmallButton(
-                    onClick: editing ? selectImportancy : null,
-                    checked: selectedIndex == 1,
+                    onClick:
+                        editing
+                            ? () {
+                              setState(() {
+                                importancyIndex = 1;
+                              });
+                            }
+                            : null,
+                    checked: importancyIndex == 1,
                     child: ColorTag(color: ColorPalette.lowImportancy),
                   ),
                   SizedBox(width: 10),
                   SmallButton(
-                    onClick: editing ? selectImportancy : null,
-                    checked: selectedIndex == 2,
+                    onClick:
+                        editing
+                            ? () {
+                              setState(() {
+                                importancyIndex = 2;
+                              });
+                            }
+                            : null,
+                    checked: importancyIndex == 2,
                     child: ColorTag(color: ColorPalette.midImportancy),
                   ),
                   SizedBox(width: 10),
                   SmallButton(
-                    onClick: editing ? selectImportancy : null,
-                    checked: selectedIndex == 3,
+                    onClick:
+                        editing
+                            ? () {
+                              setState(() {
+                                importancyIndex = 3;
+                              });
+                            }
+                            : null,
+                    checked: importancyIndex == 3,
                     child: ColorTag(color: ColorPalette.highImportany),
                   ),
                 ],
