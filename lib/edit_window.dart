@@ -63,10 +63,14 @@ class _EditWindowState extends State<EditWindow> {
                     //SizedBox for button click animation fix
                     SizedBox(width: 0),
                     IconButton(
-                      onPressed: () {
-                        widget.onSave(importancyIndex);
-                        Navigator.pop(context);
-                      },
+                      onPressed:
+                          widget.textController.text.isNotEmpty
+                              ? () {
+                                widget.onSave(importancyIndex);
+                                Navigator.pop(context);
+                                FocusScope.of(context).unfocus();
+                              }
+                              : null,
                       icon: Icon(Icons.check),
                       iconSize: 26,
                     ),
@@ -94,12 +98,7 @@ class _EditWindowState extends State<EditWindow> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 18),
-              Text(
-                'Importancy',
-                style: TextStyle(color: ColorPalette.onBackground),
-              ),
-              SizedBox(height: 6),
+              SizedBox(height: 14),
               Row(
                 children: [
                   SmallButton(

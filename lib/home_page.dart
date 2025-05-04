@@ -83,6 +83,7 @@ class _HomePageState extends State<HomePage> {
 
   //display task edit window
   void displayEditWindow(int taskIndex) {
+    FocusScope.of(context).unfocus();
     _editingFieldController.text = todos[taskIndex].name;
     showModalBottomSheet(
       context: context,
@@ -99,7 +100,7 @@ class _HomePageState extends State<HomePage> {
             ),
             padding: EdgeInsets.only(left: 12, right: 12, top: 12, bottom: 10),
             width: MediaQuery.of(context).size.width,
-            height: 280,
+            height: 240,
             child: EditWindow(
               textController: _editingFieldController,
               previousImportancyIndex: todos[taskIndex].importancy,

@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:simple_todo/home_page.dart';
 import 'package:simple_todo/util/color_palette.dart';
+import 'package:flutter/services.dart';
 
 void main() {
-  runApp(MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((
+    _,
+  ) {
+    runApp(MyApp());
+  });
 }
 
 class MyApp extends StatelessWidget {
