@@ -4,12 +4,12 @@ import 'package:simple_todo/util/color_palette.dart';
 class SmallButton extends StatefulWidget {
   final Widget child;
   final VoidCallback? onClick;
-  final bool checked;
+  final bool selected;
 
   const SmallButton({
     required this.child,
     required this.onClick,
-    this.checked = false,
+    this.selected = false,
     super.key,
   });
 
@@ -24,19 +24,14 @@ class _SmallButtonState extends State<SmallButton> {
       style: ButtonStyle(
         minimumSize: WidgetStatePropertyAll(Size(0, 28)),
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        overlayColor: WidgetStatePropertyAll(ColorPalette.container),
+        overlayColor: WidgetStatePropertyAll(Colors.transparent),
         padding: WidgetStatePropertyAll(EdgeInsets.only(left: 14, right: 14)),
+        backgroundColor: WidgetStatePropertyAll(
+          widget.selected ? ColorPalette.container : ColorPalette.background,
+        ),
       ),
       onPressed: widget.onClick,
-      child: Row(
-        children: [
-          widget.checked
-              ? Icon(Icons.check, color: ColorPalette.secondary)
-              : SizedBox(),
-          SizedBox(width: 4),
-          widget.child,
-        ],
-      ),
+      child: widget.child,
     );
   }
 }

@@ -64,7 +64,6 @@ class _EditWindowState extends State<EditWindow> {
                     SizedBox(width: 0),
                     IconButton(
                       onPressed: () {
-                        print(importancyIndex);
                         widget.onSave(importancyIndex);
                         Navigator.pop(context);
                       },
@@ -112,7 +111,7 @@ class _EditWindowState extends State<EditWindow> {
                               });
                             }
                             : null,
-                    checked: importancyIndex == 0,
+                    selected: importancyIndex == 0,
                     child: Text(
                       'None',
                       style: TextStyle(color: ColorPalette.onBackground),
@@ -128,7 +127,7 @@ class _EditWindowState extends State<EditWindow> {
                               });
                             }
                             : null,
-                    checked: importancyIndex == 1,
+                    selected: importancyIndex == 1,
                     child: ColorTag(color: ColorPalette.lowImportancy),
                   ),
                   SizedBox(width: 10),
@@ -141,7 +140,7 @@ class _EditWindowState extends State<EditWindow> {
                               });
                             }
                             : null,
-                    checked: importancyIndex == 2,
+                    selected: importancyIndex == 2,
                     child: ColorTag(color: ColorPalette.midImportancy),
                   ),
                   SizedBox(width: 10),
@@ -154,7 +153,7 @@ class _EditWindowState extends State<EditWindow> {
                               });
                             }
                             : null,
-                    checked: importancyIndex == 3,
+                    selected: importancyIndex == 3,
                     child: ColorTag(color: ColorPalette.highImportany),
                   ),
                 ],

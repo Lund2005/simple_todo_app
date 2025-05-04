@@ -4,7 +4,6 @@
 A simple todo app with the intention to learn flutter's basic local storage systems.
 
 ## Next steps
-- fix importancy tag overlfow in edit window
 - user should not be able to edit a tasks name to an empty string
 - integrate local storage system for todos
 
