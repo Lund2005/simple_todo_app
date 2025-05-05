@@ -4,7 +4,8 @@
 A simple todo app with the intention to learn flutter's basic local storage systems.
 
 ## Next steps
-- fix keyboard after editing
+- unfocus textfield when clicking on a task
+- turn importancy tags into greyscale when task is finished
 - integrate local storage system for todos
 
 ## Possible further stuff

@@ -29,11 +29,11 @@ class _TodoListTileState extends State<TodoListTile> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 16, right: 16, top: 12),
+      padding: const EdgeInsets.only(left: 16, right: 16, top: 4),
       child: Container(
         padding: EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: ColorPalette.container,
+          color: Colors.transparent,
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
             //BoxShadow(color: Colors.black26, spreadRadius: 0, blurRadius: 15),

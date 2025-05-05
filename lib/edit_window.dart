@@ -54,6 +54,7 @@ class _EditWindowState extends State<EditWindow> {
                     IconButton(
                       onPressed: () {
                         Navigator.pop(context);
+                        FocusScope.of(context).unfocus();
                       },
                       icon: Icon(Icons.close),
                       iconSize: 26,
