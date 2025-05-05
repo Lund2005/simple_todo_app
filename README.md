@@ -4,7 +4,7 @@
 A simple todo app with the intention to learn flutter's basic local storage systems.
 
 ## Next steps
-- unfocus textfield when clicking on a task
+- unfocus textfield when clicking on a task (.whenComplete() function of bottom sheet)
 - turn importancy tags into greyscale when task is finished
 - integrate local storage system for todos
 
