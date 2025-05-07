@@ -149,10 +149,11 @@ class _HomePageState extends State<HomePage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Image.asset(
-                          'images/empty_state.png',
+                          'images/empty_state_blur.png',
                           width: 300,
                           height: 300,
                         ),
+                        SizedBox(height: 80),
                       ],
                     )
                     : ListView(

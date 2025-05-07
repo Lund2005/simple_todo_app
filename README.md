@@ -4,7 +4,6 @@
 A simple todo app with the intention to learn flutter's basic local storage systems.
 
 ## Next steps
-- add new empty state image
 - integrate local storage system for todos
 
 ## Possible further stuff

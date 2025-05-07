@@ -27,8 +27,8 @@ class ColorPalette {
   static Color onBackground = Color.fromARGB(255, 0, 0, 0);
   static Color onContainer = Color.fromARGB(255, 0, 0, 0);
 
-  static Color lowImportancy = const Color.fromARGB(255, 254, 211, 48);
-  static Color midImportancy = const Color.fromARGB(255, 253, 150, 68);
+  static Color lowImportancy = const Color.fromARGB(255, 75, 123, 236);
+  static Color midImportancy = const Color.fromARGB(255, 254, 211, 48);
   static Color highImportany = const Color.fromARGB(255, 252, 92, 101);
 
   static Color colorFromImportancy(int index) {
