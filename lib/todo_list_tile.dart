@@ -29,11 +29,11 @@ class _TodoListTileState extends State<TodoListTile> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 16, right: 16, top: 4),
+      padding: const EdgeInsets.only(left: 16, right: 16, top: 12),
       child: Container(
         padding: EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: Colors.transparent,
+          color: ColorPalette.container,
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
             //BoxShadow(color: Colors.black26, spreadRadius: 0, blurRadius: 15),
@@ -65,9 +65,16 @@ class _TodoListTileState extends State<TodoListTile> {
                       ? ColorTag(
                         width: 32,
                         height: 8,
-                        color: ColorPalette.colorFromImportancy(
-                          widget.importancy,
-                        ),
+                        color:
+                            widget.taskCompleted
+                                ? ColorPalette.toGrayscaleDisabled(
+                                  ColorPalette.colorFromImportancy(
+                                    widget.importancy,
+                                  ),
+                                )
+                                : ColorPalette.colorFromImportancy(
+                                  widget.importancy,
+                                ),
                       )
                       : SizedBox(height: 0),
                   Text(

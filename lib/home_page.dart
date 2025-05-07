@@ -20,6 +20,8 @@ class _HomePageState extends State<HomePage> {
   final _addingFieldController = TextEditingController();
   final _editingFieldController = TextEditingController();
 
+  final FocusNode bottomSheetFocus = FocusNode();
+
   //checkbox of a task was changed
   void checkBoxChanged(bool? value, int index) {
     if (value!) {
@@ -83,7 +85,6 @@ class _HomePageState extends State<HomePage> {
 
   //display task edit window
   void displayEditWindow(int taskIndex) {
-    FocusScope.of(context).unfocus();
     _editingFieldController.text = todos[taskIndex].name;
     showModalBottomSheet(
       context: context,
@@ -117,7 +118,9 @@ class _HomePageState extends State<HomePage> {
           ),
         );
       },
-    );
+    ).whenComplete(() {
+      bottomSheetFocus.unfocus();
+    });
   }
 
   @override
@@ -340,6 +343,7 @@ class _HomePageState extends State<HomePage> {
           SendingTextField(
             onSend: createTask,
             addingFieldController: _addingFieldController,
+            focusNode: bottomSheetFocus,
           ),
         ],
       ),

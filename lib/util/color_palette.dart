@@ -12,9 +12,10 @@ class ColorPalette {
   static Color tertiary = Color.fromARGB(255, 161, 161, 161);
 
   static Color disabled = Color.fromARGB(255, 200, 200, 200);
+  static Color selected = Color.fromARGB(255, 221, 221, 221);
 
   static Color background = Color.fromARGB(255, 240, 240, 240);
-  static Color container = Color.fromARGB(255, 225, 225, 225);
+  static Color container = Color.fromARGB(255, 248, 248, 248);
 
   static Color error = Color.fromARGB(255, 255, 65, 65);
   static Color errorContainer = Color.fromARGB(255, 255, 199, 204);
@@ -41,5 +42,15 @@ class ColorPalette {
       default:
         return background;
     }
+  }
+
+  static Color toGrayscaleDisabled(Color color) {
+    final int red = (color.r * 255).round();
+    final int green = (color.g * 255).round();
+    final int blue = (color.b * 255).round();
+
+    int gray = (0.3 * red + 0.59 * green + 0.11 * blue).round();
+
+    return Color.fromARGB(80, gray, gray, gray);
   }
 }

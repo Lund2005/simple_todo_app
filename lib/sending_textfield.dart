@@ -4,11 +4,13 @@ import 'package:simple_todo/util/color_palette.dart';
 class SendingTextField extends StatefulWidget {
   final TextEditingController addingFieldController;
   final Function()? onSend;
+  final FocusNode focusNode;
 
   const SendingTextField({
     super.key,
     required this.onSend,
     required this.addingFieldController,
+    required this.focusNode,
   });
 
   @override
@@ -24,6 +26,7 @@ class _SendingTextFieldState extends State<SendingTextField> {
         children: [
           Expanded(
             child: TextField(
+              focusNode: widget.focusNode,
               controller: widget.addingFieldController,
               decoration: InputDecoration(
                 hintText: 'What do you want to do?',

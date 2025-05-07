@@ -27,7 +27,7 @@ class _SmallButtonState extends State<SmallButton> {
         overlayColor: WidgetStatePropertyAll(Colors.transparent),
         padding: WidgetStatePropertyAll(EdgeInsets.only(left: 14, right: 14)),
         backgroundColor: WidgetStatePropertyAll(
-          widget.selected ? ColorPalette.container : ColorPalette.background,
+          widget.selected ? ColorPalette.selected : ColorPalette.background,
         ),
       ),
       onPressed: widget.onClick,
