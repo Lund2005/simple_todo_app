@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:simple_todo/home_page.dart';
-import 'package:simple_todo/util/color_palette.dart';
 import 'package:flutter/services.dart';
 
-void main() {
+import 'package:simple_todo/home_page.dart';
+import 'package:simple_todo/util/color_palette.dart';
+import 'package:simple_todo/util/object_box.dart';
+
+//objectbox dataset
+late ObjectBox objectBox;
+
+Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  objectBox = await ObjectBox.init();
+
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((
     _,
   ) {

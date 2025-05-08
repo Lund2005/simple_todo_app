@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+
 import 'package:simple_todo/edit_window.dart';
 import 'package:simple_todo/listview_subheading.dart';
 import 'package:simple_todo/sending_textfield.dart';
 import 'package:simple_todo/todo_list_tile.dart';
 import 'package:simple_todo/util/color_palette.dart';
+import 'package:simple_todo/util/models.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -159,6 +161,16 @@ class _HomePageState extends State<HomePage> {
                     : ListView(
                       children: [
                         //tasks in progress
+                        todos.isNotEmpty
+                            ? Padding(
+                              padding: const EdgeInsets.only(
+                                left: 22,
+                                right: 22,
+                                top: 12,
+                              ),
+                              child: ListSubheading(text: 'Tasks in progress'),
+                            )
+                            : SizedBox(height: 0),
                         ReorderableListView.builder(
                           physics: ScrollPhysics(),
                           shrinkWrap: true,
@@ -170,7 +182,7 @@ class _HomePageState extends State<HomePage> {
                             Task cur = todos[index];
                             return Dismissible(
                               //Dismissable key, needs to be unique
-                              key: Key(cur.id),
+                              key: Key(cur.identity),
                               direction: DismissDirection.endToStart,
                               background: Padding(
                                 padding: const EdgeInsets.only(
@@ -212,7 +224,7 @@ class _HomePageState extends State<HomePage> {
                                 },
                                 child: TodoListTile(
                                   //List tile key (needs to be specific to the index)
-                                  key: ValueKey(cur.id),
+                                  key: ValueKey(cur.identity),
                                   index: index,
                                   taskName: cur.name,
                                   taskCompleted: false,
@@ -286,7 +298,7 @@ class _HomePageState extends State<HomePage> {
                             Task cur = finished[index];
                             return Dismissible(
                               //Dismissable key, needs to be unique
-                              key: Key(cur.id),
+                              key: Key(cur.identity),
                               direction: DismissDirection.endToStart,
                               background: Padding(
                                 padding: const EdgeInsets.only(
@@ -323,7 +335,7 @@ class _HomePageState extends State<HomePage> {
                               },
                               child: TodoListTile(
                                 //List tile key (needs to be specific to the index)
-                                key: ValueKey(cur.id),
+                                key: ValueKey(cur.identity),
                                 index: index,
                                 taskName: cur.name,
                                 taskCompleted: true,
@@ -350,13 +362,4 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-}
-
-//task class to hold task data
-class Task {
-  String id;
-  String name;
-  int importancy = 0;
-
-  Task({required this.name}) : id = UniqueKey().toString();
 }

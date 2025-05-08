@@ -5,6 +5,7 @@ A simple todo app with the intention to learn flutter's basic local storage syst
 
 ## Next steps
 - integrate local storage system for todos
+- add tasks in progress headline
 
 ## Possible further stuff
 - add task category and description
