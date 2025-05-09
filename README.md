@@ -3,11 +3,6 @@
 ## Description
 A simple todo app with the intention to learn flutter's basic local storage systems.
 
-## Next steps
-- integrate local storage system for todos
-  - save order or reorder again on load with stored index
-  - saving checked property does not work yet
-
 ## Possible further stuff
 - add task category and description
 - add different buttons for category filtering at the top (with "All tasks" as the default state)

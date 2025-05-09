@@ -22,7 +22,7 @@ final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
     id: const obx_int.IdUid(2, 6831039437372853359),
     name: 'Task',
-    lastPropertyId: const obx_int.IdUid(4, 6221342299453371756),
+    lastPropertyId: const obx_int.IdUid(6, 8725310459298550189),
     flags: 0,
     properties: <obx_int.ModelProperty>[
       obx_int.ModelProperty(
@@ -46,6 +46,18 @@ final _entities = <obx_int.ModelEntity>[
       obx_int.ModelProperty(
         id: const obx_int.IdUid(4, 6221342299453371756),
         name: 'importancy',
+        type: 6,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(5, 2548861424927202951),
+        name: 'isFinished',
+        type: 1,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(6, 8725310459298550189),
+        name: 'sortIndex',
         type: 6,
         flags: 0,
       ),
@@ -123,32 +135,56 @@ obx_int.ModelDefinition getObjectBoxModel() {
       objectToFB: (Task object, fb.Builder fbb) {
         final identityOffset = fbb.writeString(object.identity);
         final nameOffset = fbb.writeString(object.name);
-        fbb.startTable(5);
+        fbb.startTable(7);
         fbb.addInt64(0, object.id);
         fbb.addOffset(1, identityOffset);
         fbb.addOffset(2, nameOffset);
         fbb.addInt64(3, object.importancy);
+        fbb.addBool(4, object.isFinished);
+        fbb.addInt64(5, object.sortIndex);
         fbb.finish(fbb.endTable());
         return object.id;
       },
       objectFromFB: (obx.Store store, ByteData fbData) {
         final buffer = fb.BufferContext(fbData);
         final rootOffset = buffer.derefObject(0);
+        final idParam = const fb.Int64Reader().vTableGet(
+          buffer,
+          rootOffset,
+          4,
+          0,
+        );
         final nameParam = const fb.StringReader(
           asciiOptimization: true,
         ).vTableGet(buffer, rootOffset, 8, '');
-        final object =
-            Task(name: nameParam)
-              ..id = const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0)
-              ..identity = const fb.StringReader(
-                asciiOptimization: true,
-              ).vTableGet(buffer, rootOffset, 6, '')
-              ..importancy = const fb.Int64Reader().vTableGet(
-                buffer,
-                rootOffset,
-                10,
-                0,
-              );
+        final sortIndexParam = const fb.Int64Reader().vTableGet(
+          buffer,
+          rootOffset,
+          14,
+          0,
+        );
+        final isFinishedParam = const fb.BoolReader().vTableGet(
+          buffer,
+          rootOffset,
+          12,
+          false,
+        );
+        final importancyParam = const fb.Int64Reader().vTableGet(
+          buffer,
+          rootOffset,
+          10,
+          0,
+        );
+        final object = Task(
+            id: idParam,
+            name: nameParam,
+            sortIndex: sortIndexParam,
+            isFinished: isFinishedParam,
+            importancy: importancyParam,
+          )
+          ..identity = const fb.StringReader(
+            asciiOptimization: true,
+          ).vTableGet(buffer, rootOffset, 6, '');
 
         return object;
       },
@@ -174,5 +210,15 @@ class Task_ {
   /// See [Task.importancy].
   static final importancy = obx.QueryIntegerProperty<Task>(
     _entities[0].properties[3],
+  );
+
+  /// See [Task.isFinished].
+  static final isFinished = obx.QueryBooleanProperty<Task>(
+    _entities[0].properties[4],
+  );
+
+  /// See [Task.sortIndex].
+  static final sortIndex = obx.QueryIntegerProperty<Task>(
+    _entities[0].properties[5],
   );
 }

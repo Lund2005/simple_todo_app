@@ -28,6 +28,9 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     todos = objectBox.getAllTasks();
     finished = objectBox.getAllFinishedTasks();
+
+    todos.sort((a, b) => a.sortIndex.compareTo(b.sortIndex));
+    finished.sort((a, b) => a.sortIndex.compareTo(b.sortIndex));
   }
 
   final _addingFieldController = TextEditingController();
@@ -39,23 +42,36 @@ class _HomePageState extends State<HomePage> {
   void checkBoxChanged(bool? value, int index) {
     if (value!) {
       setState(() {
-        objectBox.setFinished(true, todos[index].id);
-        finished.insert(0, todos[index]);
+        Task task = todos[index];
+        objectBox.modifyTask(task.id, task.name, true, task.importancy, 0);
+        finished.insert(0, task);
         todos.removeAt(index);
       });
     } else {
       setState(() {
-        objectBox.setFinished(false, finished[index].id);
-        todos.add(finished[index]);
+        Task task = finished[index];
+        objectBox.modifyTask(
+          task.id,
+          task.name,
+          false,
+          task.importancy,
+          todos.length,
+        );
+        todos.add(task);
         finished.removeAt(index);
       });
     }
+
+    updateTaskOrder();
   }
 
   //create new task
   void createTask() {
     setState(() {
-      Task newTask = Task(name: _addingFieldController.text);
+      Task newTask = Task(
+        name: _addingFieldController.text,
+        sortIndex: todos.length,
+      );
       todos.add(newTask);
       objectBox.insertTask(newTask);
     });
@@ -72,6 +88,8 @@ class _HomePageState extends State<HomePage> {
       var element = todos.removeAt(oldindex);
       todos.insert(newindex, element);
     });
+
+    updateTaskOrder();
   }
 
   //reorder finished tasks
@@ -83,6 +101,19 @@ class _HomePageState extends State<HomePage> {
       var element = finished.removeAt(oldindex);
       finished.insert(newindex, element);
     });
+
+    updateTaskOrder();
+  }
+
+  void updateTaskOrder() {
+    for (int i = 0; i < todos.length; i++) {
+      Task task = todos[i];
+      objectBox.modifyTask(task.id, task.name, false, task.importancy, i);
+    }
+    for (int i = 0; i < finished.length; i++) {
+      Task task = finished[i];
+      objectBox.modifyTask(task.id, task.name, true, task.importancy, i);
+    }
   }
 
   //proxy generator for task animation
@@ -127,6 +158,18 @@ class _HomePageState extends State<HomePage> {
                   todos[taskIndex].name = _editingFieldController.text;
                   todos[taskIndex].importancy = importancyIndex;
                 });
+
+                Task task = todos[taskIndex];
+                objectBox.modifyTask(
+                  task.id,
+                  task.name,
+                  false,
+                  importancyIndex,
+                  task.sortIndex,
+                );
+
+                updateTaskOrder();
+
                 Future.delayed(const Duration(milliseconds: 300), () {
                   _editingFieldController.clear();
                 });

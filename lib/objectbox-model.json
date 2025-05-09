@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "2:6831039437372853359",
-      "lastPropertyId": "4:6221342299453371756",
+      "lastPropertyId": "6:8725310459298550189",
       "name": "Task",
       "properties": [
         {
@@ -27,6 +27,16 @@
         {
           "id": "4:6221342299453371756",
           "name": "importancy",
+          "type": 6
+        },
+        {
+          "id": "5:2548861424927202951",
+          "name": "isFinished",
+          "type": 1
+        },
+        {
+          "id": "6:8725310459298550189",
+          "name": "sortIndex",
           "type": 6
         }
       ],

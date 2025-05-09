@@ -4,12 +4,19 @@ import 'package:objectbox/objectbox.dart';
 @Entity()
 class Task {
   @Id()
-  int id = 0;
+  int id;
 
   String identity;
   String name;
-  int importancy = 0;
-  bool isFinished = false;
+  int importancy;
+  bool isFinished;
+  int sortIndex;
 
-  Task({required this.name}) : identity = UniqueKey().toString();
+  Task({
+    this.id = 0,
+    required this.name,
+    required this.sortIndex,
+    this.isFinished = false,
+    this.importancy = 0,
+  }) : identity = UniqueKey().toString();
 }

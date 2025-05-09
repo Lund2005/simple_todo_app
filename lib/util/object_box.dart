@@ -16,7 +16,15 @@ class ObjectBox {
   }
 
   //tasks
-  List<Task> getAllTasks() => _taskBox.getAll();
+  List<Task> getAllTasks() {
+    List<Task> tasks = [];
+    for (var task in _taskBox.getAll()) {
+      if (!task.isFinished) {
+        tasks.add(task);
+      }
+    }
+    return tasks;
+  }
 
   Task? getTask(int id) => _taskBox.get(id);
 
@@ -24,9 +32,21 @@ class ObjectBox {
 
   bool deleteTask(int id) => _taskBox.remove(id);
 
-  void setFinished(bool finished, int id) {
-    //TODO not working
-    _taskBox.get(id)?.isFinished = finished;
+  void modifyTask(
+    int id,
+    String name,
+    bool finished,
+    int importancy,
+    int sortIndex,
+  ) {
+    Task? task = _taskBox.get(id);
+    if (task != null) {
+      task.name = name;
+      task.isFinished = finished;
+      task.importancy = importancy;
+      task.sortIndex = sortIndex;
+      _taskBox.put(task);
+    }
   }
 
   List<Task> getAllFinishedTasks() {
