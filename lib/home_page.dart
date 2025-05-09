@@ -2,13 +2,17 @@ import 'package:flutter/material.dart';
 
 import 'package:simple_todo/edit_window.dart';
 import 'package:simple_todo/listview_subheading.dart';
+import 'package:simple_todo/main.dart';
 import 'package:simple_todo/sending_textfield.dart';
 import 'package:simple_todo/todo_list_tile.dart';
 import 'package:simple_todo/util/color_palette.dart';
 import 'package:simple_todo/util/models.dart';
+import 'package:simple_todo/util/object_box.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final ObjectBox objectBox;
+
+  const HomePage({super.key, required this.objectBox});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -16,8 +20,15 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   //variables
-  List<Task> todos = [Task(name: 'Task 1'), Task(name: 'Task 2')];
-  List<Task> finished = [Task(name: 'Task 3')];
+  late List<Task> todos;
+  late List<Task> finished;
+
+  @override
+  void initState() {
+    super.initState();
+    todos = objectBox.getAllTasks();
+    finished = objectBox.getAllFinishedTasks();
+  }
 
   final _addingFieldController = TextEditingController();
   final _editingFieldController = TextEditingController();
@@ -28,11 +39,13 @@ class _HomePageState extends State<HomePage> {
   void checkBoxChanged(bool? value, int index) {
     if (value!) {
       setState(() {
+        objectBox.setFinished(true, todos[index].id);
         finished.insert(0, todos[index]);
         todos.removeAt(index);
       });
     } else {
       setState(() {
+        objectBox.setFinished(false, finished[index].id);
         todos.add(finished[index]);
         finished.removeAt(index);
       });
@@ -42,7 +55,9 @@ class _HomePageState extends State<HomePage> {
   //create new task
   void createTask() {
     setState(() {
-      todos.add(Task(name: _addingFieldController.text));
+      Task newTask = Task(name: _addingFieldController.text);
+      todos.add(newTask);
+      objectBox.insertTask(newTask);
     });
 
     _addingFieldController.clear();
@@ -214,7 +229,9 @@ class _HomePageState extends State<HomePage> {
                               ),
                               onDismissed: (direction) {
                                 setState(() {
-                                  todos.removeAt(index);
+                                  Task toRemove = todos.elementAt(index);
+                                  todos.remove(toRemove);
+                                  objectBox.deleteTask(toRemove.id);
                                 });
                               },
                               //Gesture detector for detecting clicks on task tile (edit task)
@@ -271,6 +288,7 @@ class _HomePageState extends State<HomePage> {
                                         () {
                                           setState(() {
                                             finished.clear();
+                                            objectBox.clearFinishedTasks();
                                           });
                                         },
                                       );
@@ -330,7 +348,9 @@ class _HomePageState extends State<HomePage> {
                               ),
                               onDismissed: (direction) {
                                 setState(() {
-                                  finished.removeAt(index);
+                                  Task toRemove = finished.elementAt(index);
+                                  finished.remove(toRemove);
+                                  objectBox.deleteTask(toRemove.id);
                                 });
                               },
                               child: TodoListTile(

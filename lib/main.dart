@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
           selectionHandleColor: ColorPalette.secondary,
         ),
       ),
-      home: HomePage(),
+      home: HomePage(objectBox: objectBox),
     );
   }
 }

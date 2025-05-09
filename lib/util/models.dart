@@ -9,6 +9,7 @@ class Task {
   String identity;
   String name;
   int importancy = 0;
+  bool isFinished = false;
 
   Task({required this.name}) : identity = UniqueKey().toString();
 }
