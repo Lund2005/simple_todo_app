@@ -209,7 +209,7 @@ class _HomePageState extends State<HomePage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Image.asset(
-                          'images/empty_state_blur.png',
+                          'images/empty_state.png',
                           width: 300,
                           height: 300,
                         ),

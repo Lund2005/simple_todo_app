@@ -3,6 +3,10 @@
 ## Description
 A simple todo app with the intention to learn flutter's basic local storage systems.
 
+## Todo
+- add icon
+- build the app
+
 ## Possible further stuff
 - add task category and description
 - add different buttons for category filtering at the top (with "All tasks" as the default state)
